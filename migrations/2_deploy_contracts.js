@@ -8,8 +8,16 @@ let Token = artifacts.require("./market/Token.sol");
 module.exports = function(deployer, network, accounts) {
   deployer.deploy(TokenMarket)
     .then(() => {
-      SwapyExchange
+      TokenMarket
         .deployed()
-        .then(console.log);
+        .then(deployed => {
+          console.log(deployed);
+          deployer.deploy(Token)
+          .then(() => {
+            Token
+              .deployed()
+              .then(console.log);
+          });
+        });
     });
 };
