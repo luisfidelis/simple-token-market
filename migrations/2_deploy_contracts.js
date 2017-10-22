@@ -1,23 +1,21 @@
 // --- Contracts
 
 let TokenMarket = artifacts.require("./market/TokenMarket.sol");
-let Token = artifacts.require("./market/Token.sol");
+let SimpleToken = artifacts.require("./token/SimpleToken.sol");
 
 // --- Reference values
 
 module.exports = function(deployer, network, accounts) {
-  deployer.deploy(TokenMarket)
+  deployer.deploy(SimpleToken)
     .then(() => {
-      TokenMarket
+      SimpleToken
         .deployed()
         .then(deployed => {
           console.log(deployed);
-          deployer.deploy(Token)
-          .then(() => {
-            Token
-              .deployed()
-              .then(console.log);
-          });
+        }, error => {
+          console.log(error);
         });
+    },error => {
+      console.log(error);
     });
 };
