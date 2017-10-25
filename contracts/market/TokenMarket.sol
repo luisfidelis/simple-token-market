@@ -28,7 +28,7 @@ contract TokenMarket {
     // update state
     weiRaised = weiRaised.add(weiAmount);
 
-    token.mint(beneficiary, tokens);
+    token.mint(purchaser, tokens);
     
     return true;
   }
