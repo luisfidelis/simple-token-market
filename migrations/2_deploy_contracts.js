@@ -6,9 +6,9 @@ let SimpleToken = artifacts.require("./token/SimpleToken.sol");
 // --- Reference values
 
 module.exports = function(deployer, network, accounts) {
-  deployer.deploy(SimpleToken)
+  deployer.deploy(TokenMarket)
     .then(() => {
-      SimpleToken
+      TokenMarket
         .deployed()
         .then(deployed => {
           console.log(deployed);
