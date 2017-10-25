@@ -8,13 +8,14 @@ contract TokenMarket {
   // the token being sold  
   SimpleToken public token;
   // Token Market owner
-  address public owner = 0x5E9F487F4d2844CBf43270E22a57d85236236280;
+  address public owner;
   // amount of raised money in wei
   uint256 public weiRaised;
   // how many token units a buyer gets per wei
   uint256 public rate = 1;
 
   function TokenMarket() {
+    owner = msg.sender;
     token = createTokenContract();
   }
   function buyTokens(address purchaser) payable
@@ -31,8 +32,9 @@ contract TokenMarket {
     // update state
     weiRaised = weiRaised.add(weiAmount);
 
-    token.mint(purchaser, tokens);
+    token.transferFrom(owner, purchaser, tokens);
     
+    forwardFunds();
     return true;
   }
   function () payable {
@@ -48,7 +50,7 @@ contract TokenMarket {
   // creates the token to be sold.
   // override this method to have crowdsale of a specific mintable token.
   function createTokenContract() internal returns (SimpleToken) {
-    return new SimpleToken();
+    return new SimpleToken(owner);
   }
         
 }

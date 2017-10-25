@@ -1,6 +1,6 @@
 pragma solidity ^0.4.11;
 
-import "zeppelin-solidity/contracts/token/MintableToken.sol";
+import "zeppelin-solidity/contracts/token/StandardToken.sol";
 
 /**
  * @title SimpleToken
@@ -8,8 +8,8 @@ import "zeppelin-solidity/contracts/token/MintableToken.sol";
  * Note they can later distribute these tokens as they wish using `transfer` and other
  * `StandardToken` functions.
  */
-contract SimpleToken is MintableToken {
-
+contract SimpleToken is StandardToken {
+  
   string public constant name = "SimpleToken";
   string public constant symbol = "STK";
   uint8 public constant decimals = 18;
@@ -19,9 +19,9 @@ contract SimpleToken is MintableToken {
   /**
    * @dev Constructor that gives msg.sender all of existing tokens.
    */
-  function SimpleToken() {
+  function SimpleToken(address owner) {
     totalSupply = INITIAL_SUPPLY;
-    balances[msg.sender] = INITIAL_SUPPLY;
+    balances[owner] = INITIAL_SUPPLY;
   }
 
 }
