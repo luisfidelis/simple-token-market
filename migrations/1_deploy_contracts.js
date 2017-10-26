@@ -1,7 +1,6 @@
 // --- Contracts
 
 let TokenMarket = artifacts.require("./market/TokenMarket.sol");
-let SimpleToken = artifacts.require("./token/SimpleToken.sol");
 
 // --- Reference values
 

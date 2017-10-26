@@ -23,17 +23,10 @@ contract TokenMarket {
     returns(bool) 
   {
     require(purchaser != address(0));
-
     uint256 weiAmount = msg.value;
-    // calculate token amount to be created
-
     uint256 tokens = weiAmount.mul(rate);
-
-    // update state
     weiRaised = weiRaised.add(weiAmount);
-
     token.transferFrom(owner, purchaser, tokens);
-    
     forwardFunds();
     return true;
   }
