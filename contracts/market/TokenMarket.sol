@@ -26,24 +26,17 @@ contract TokenMarket {
     uint256 weiAmount = msg.value;
     uint256 tokens = weiAmount.mul(rate);
     weiRaised = weiRaised.add(weiAmount);
-    token.transferFrom(owner, purchaser, tokens);
-    forwardFunds();
+    token.mint(purchaser, tokens);
     return true;
   }
   function () payable {
     buyTokens(msg.sender);
   }
 
-  // send ether to the fund collection wallet
-  // override to create custom fund forwarding mechanisms
-  function forwardFunds() internal {
-    owner.transfer(msg.value);
-  }
-
   // creates the token to be sold.
   // override this method to have crowdsale of a specific mintable token.
   function createTokenContract() internal returns (SimpleToken) {
-    return new SimpleToken(owner);
+    return new SimpleToken();
   }
         
 }
